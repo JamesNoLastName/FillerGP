@@ -55,7 +55,7 @@ function checkAdjacentColor(i, j, color) {
 function updateUI() {
     requestAnimationFrame(() => {
         scores[player].textContent = playerSquares[player].length.toString();
-        document.getElementById("turnNumber").textContent = `Player ${player + 1}'s turn!`;
+        document.getElementById("turnNumber").textContent = `Player ${player + 1}'s turn! Empty squares: ${emptySquares}`;
     });
 }
 
@@ -68,39 +68,53 @@ function yellowButton(){ pressButton("yellow"); }
 function purpleButton(){ pressButton("purple"); }
 function pressButton(color) {
     playerColors[player] = color;
+
     const buttons = document.getElementsByClassName("button");
     Array.from(buttons).forEach(button => {
         button.disabled = false;
         button.style.height = "45px";
         button.style.width = "45px";
     });
-    colors.forEach((color) => {
-        const button = document.getElementById(color);
-        if (playerColors.includes(color)) {
+
+    colors.forEach((c) => {
+        const button = document.getElementById(c);
+        if (playerColors.includes(c)) {
             button.disabled = true;
             button.style.width = "30px";
             button.style.height = "30px";
         }
     });
+
     const adjacent = [];
     playerSquares[player].forEach((square) => {
-        square.style.backgroundColor = color;
         const q = classNames.indexOf(square.className);
         addAdjacentSquares(q, square.cellIndex, adjacent, color);
     });
+
     adjacent.forEach(square => {
         if (!playerSquares[0].includes(square) && !playerSquares[1].includes(square)) {
             playerSquares[player].push(square);
+            square.style.backgroundColor = color;
             emptySquares--;
         }
     });
-    updateUI();
-    player = player === 0 ? 1 : 0;
-    if (emptySquares === 0) {
+
+    playerSquares[player].forEach(square => {
+        square.style.backgroundColor = color;
+    });
+    scores[player].textContent = playerSquares[player].length;
+    updateUI(); 
+    player = player === 0 ? 1 : 0; 
+    //BROKEN!
+    if (playerSquares[1] + playerSquares[0] > 55) {
         const endString = getEndGameString();
         document.getElementById("turnNumber").textContent = endString;
+    } else {
+        document.getElementById("turnNumber").textContent = `Player ${player + 1}'s turn! Empty squares: ${emptySquares}`;
     }
 }
+
+
 function addAdjacentSquares(q, cellIndex, adjacent, color) {
     if (q >= 1 && board[q - 1][cellIndex].style.backgroundColor === color) {
         adjacent.push(board[q - 1][cellIndex]);
