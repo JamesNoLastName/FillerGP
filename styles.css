@@ -1,0 +1,58 @@
+html, body {
+    overflow: hidden;
+    height: 100%;
+}
+
+#background {
+    background-color: #B0B3B8; 
+    height: 100vh;
+}
+
+tr {
+    height: 50px;
+}
+    
+table {
+    padding-bottom: 50px;
+    margin: auto;
+}
+
+td {
+    width: 48px;
+    height: 48px;
+    text-align: center;
+}
+
+#buttons {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+.button {
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.heading {
+    text-align: center;
+}
+
+#playerOne {
+    position: absolute;
+    top: 25%;
+    left: 0;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+}
+
+#playerTwo {
+    position: absolute;
+    top: 25%;
+    right: 0;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+}
