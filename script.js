@@ -104,15 +104,19 @@ function pressButton(color) {
     });
     scores[player].textContent = playerSquares[player].length;
     updateUI(); 
+
+    // Switch player
     player = player === 0 ? 1 : 0; 
-    //BROKEN!
-    if (playerSquares[1] + playerSquares[0] > 55) {
+
+    // Check for game over
+    if (emptySquares <= 0) {
         const endString = getEndGameString();
         document.getElementById("turnNumber").textContent = endString;
     } else {
         document.getElementById("turnNumber").textContent = `Player ${player + 1}'s turn! Empty squares: ${emptySquares}`;
     }
 }
+
 
 
 function addAdjacentSquares(q, cellIndex, adjacent, color) {
